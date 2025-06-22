@@ -29,7 +29,7 @@ export default function Dashboard() {
         const fetchArticles = async () => {
             try {
                 const { data } = await axios.get(
-                    `https://newsapi.org/v2/everything?q=technology&apiKey=b73c123e7a974352a92bd10b0a297146`
+                    `https://newsapi.org/v2/everything?q=technology&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
                 );
                 if (data?.articles) setArticles(data.articles);
             } catch (err) {
@@ -102,7 +102,7 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <Navbar role={role} />
-            
+
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
@@ -202,8 +202,8 @@ export default function Dashboard() {
                                     </p>
                                 </div>
                                 <div className="flex gap-3">
-                                    <button 
-                                        onClick={handleExportPDF} 
+                                    <button
+                                        onClick={handleExportPDF}
                                         className="inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors duration-200 shadow-sm"
                                     >
                                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,7 +237,7 @@ export default function Dashboard() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                                     {uniqueAuthors.map((author, index) => (
-                                        <tr 
+                                        <tr
                                             key={author}
                                             className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'} hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
                                         >
@@ -301,7 +301,7 @@ export default function Dashboard() {
                             Browse through the latest technology articles
                         </p>
                     </div>
-                    
+
                     <div className="p-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {articles.map((article, index) => (
@@ -321,22 +321,22 @@ export default function Dashboard() {
                                                 }}
                                             />
                                         ) : null}
-                                        <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500" style={{display: article.urlToImage ? 'none' : 'flex'}}>
+                                        <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500" style={{ display: article.urlToImage ? 'none' : 'flex' }}>
                                             <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                                             </svg>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="p-5">
                                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                             {article.title}
                                         </h3>
-                                        
+
                                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                                             {article.description}
                                         </p>
-                                        
+
                                         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
                                             <span className="flex items-center">
                                                 <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -348,12 +348,12 @@ export default function Dashboard() {
                                                 {new Date(article.publishedAt).toLocaleDateString()}
                                             </span>
                                         </div>
-                                        
+
                                         <div className="flex items-center justify-between">
                                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-200">
                                                 {article.source?.name || 'N/A'}
                                             </span>
-                                            
+
                                             <a
                                                 href={article.url}
                                                 target="_blank"
